@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -117,7 +116,10 @@ fun Greeting(name: String) {
 fun DefaultPreview() {
     ComposeExerciseTheme {
         Scaffold {
-            Row {
+            Row(
+                modifier = Modifier
+                    .padding(it)
+            ) {
                 Column {
                     NewCard(
                         msg = Message(
