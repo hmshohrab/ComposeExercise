@@ -98,7 +98,6 @@ fun NewCard(msg: Message) {
 }
 
 
-@Preview
 @Composable
 fun PreviewMessageCard() {
     MessageCard(

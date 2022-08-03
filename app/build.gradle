@@ -4,14 +4,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        dev {
-            storeFile file('/Users/md.asifparvez/Shohrab/ShohrabProject/dev.jks')
-            storePassword 'dev2022'
-            keyAlias 'key0'
-            keyPassword 'dev2022'
-        }
-    }
     compileSdk 32
 
     defaultConfig {
@@ -25,30 +17,23 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-        signingConfig signingConfigs.dev
     }
 
     buildTypes {
         debug {
-            manifestPlaceholders
             manifestPlaceholders["compose"] = "Compose Debug"
             applicationIdSuffix = ".debug"
-            signingConfig signingConfigs.dev
         }
         dev{
-            manifestPlaceholders
-            manifestPlaceholders
             initWith debug
             manifestPlaceholders["compose"] = "Compose DEV"
             applicationIdSuffix = ".dev"
             matchingFallbacks = ['debug', 'dev', 'release']
-            signingConfig signingConfigs.dev
             debuggable true
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.dev
         }
     }
     compileOptions {
