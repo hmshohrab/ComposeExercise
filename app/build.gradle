@@ -25,16 +25,14 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-        signingConfig signingConfigs.dev
-    }
+     }
 
     buildTypes {
         debug {
             manifestPlaceholders
             manifestPlaceholders["compose"] = "Compose Debug"
             applicationIdSuffix = ".debug"
-            signingConfig signingConfigs.dev
-        }
+         }
         dev{
             manifestPlaceholders
             manifestPlaceholders
@@ -42,8 +40,7 @@ android {
             manifestPlaceholders["compose"] = "Compose DEV"
             applicationIdSuffix = ".dev"
             matchingFallbacks = ['debug', 'dev', 'release']
-            signingConfig signingConfigs.dev
-            debuggable true
+             debuggable true
         }
         release {
             minifyEnabled false

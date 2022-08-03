@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.hmshohrab.composeexercise.ui.theme.ComposeExerciseTheme
 
@@ -21,13 +22,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposeExerciseTheme {
+            ComposeExerciseTheme(darkTheme = false) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colors.secondary
                 ) {
-                    Greeting("Android")
+                    DefaultPreview()
                 }
             }
         }
@@ -106,9 +107,10 @@ fun PreviewMessageCard() {
     )
 }
 
+@Preview(showBackground = true)
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun Greeting(name: String = "") {
+    Text(text = "Hello $name!", fontSize = TextUnit.Unspecified)
 }
 
 @Preview(showBackground = true)
