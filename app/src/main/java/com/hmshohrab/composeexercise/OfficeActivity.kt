@@ -15,12 +15,10 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.VideoCall
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -31,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hmshohrab.composeexercise.ui.theme.ComposeExerciseTheme
+import com.hmshohrab.composeexercise.ui.theme.accentColor
 
 class OfficeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +81,7 @@ fun OfficeScreen() {
             Text("I'm a TopAppBar")
         }, backgroundColor = MaterialTheme.colorScheme.background, navigationIcon = {
             IconButton(onClick = {/* Do Something*/ }) {
-                Icon(Icons.Filled.ArrowBack, null)
+                Icon(Icons.Filled.Menu, null)
             }
         }, actions = {
             IconButton(onClick = {/* Do Something*/ }) {
@@ -92,7 +91,7 @@ fun OfficeScreen() {
                 Icon(Icons.Filled.Settings, null)
             }
         })
-    }) {
+    }, backgroundColor = Color.White) {
 
 
         Column(modifier = Modifier.padding(it)) {
@@ -164,12 +163,14 @@ fun OfficeScreen() {
 
 
 
-            Column {
-                BoxWithConstraints {
+
+                BoxWithConstraints(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center) {
                     Text(
                         textAlign = TextAlign.Center,
                         text = "Excuse me",
-                        color = Color.Blue,
+                        color = accentColor,
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
                     )
@@ -177,7 +178,7 @@ fun OfficeScreen() {
                 Image(
                     painter = painterResource(id = R.drawable.compose_awesome),
                     contentDescription = "")
-            }
+
         }
 
     }
