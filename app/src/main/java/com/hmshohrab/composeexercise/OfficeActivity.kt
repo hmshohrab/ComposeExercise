@@ -5,17 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -59,6 +58,7 @@ data class ListModel(
     val languageImg: Int,
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun OfficeScreen() {
@@ -77,9 +77,9 @@ fun OfficeScreen() {
 
 
     Scaffold(topBar = {
-        TopAppBar(elevation = 4.dp, title = {
+        TopAppBar(title = {
             Text("I'm a TopAppBar")
-        }, backgroundColor = MaterialTheme.colorScheme.background, navigationIcon = {
+        }, navigationIcon = {
             IconButton(onClick = {/* Do Something*/ }) {
                 Icon(Icons.Filled.Menu, null)
             }
@@ -91,96 +91,106 @@ fun OfficeScreen() {
                 Icon(Icons.Filled.Settings, null)
             }
         })
-    }, backgroundColor = Color.White) {
+    }) {
 
 
         Column(modifier = Modifier.padding(it)) {
 
+            AdviceItem(item = courseList[0])
+
             LazyRow {
-                itemsIndexed(courseList) { index, item ->
-                    Card(modifier = Modifier
-                        .width(180.dp)
-                        .padding(5.dp)) {
-                        Row(modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 8.dp, end = 8.dp)) {
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(Color.Red)
-
-                            ) {
-                                Text(modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-                                    textAlign = TextAlign.Center,
-                                    text = "Live",
-                                    color = Color.White,
-                                    fontSize = 16.sp
-                                )
-                            }
-                            Spacer(modifier = Modifier
-                                .weight(1f))
-                            Image(modifier = Modifier.size(25.dp),
-                                painter = painterResource(id = item.languageImg),
-                                contentDescription = "")
-
-
-                        }
-                        Text(
-                            modifier = Modifier.padding(horizontal = 5.dp), maxLines = 2,
-                            text = "${item.languageName}\n",
-                            color = Color.Black,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp,
-                        )
-                        Text(
-                            modifier = Modifier.padding(horizontal = 5.dp),
-                            textAlign = TextAlign.Center,
-                            text = "99 Tk",
-                            color = Color.Red,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp,
-                        )
-                        ElevatedButton(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(5.dp),
-                            shape = RoundedCornerShape(25),
-                            onClick = { /* ... */ },
-                            // Uses ButtonDefaults.ContentPadding by default
-                            contentPadding = it,
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.Magenta)
-                        ) {
-                            // Inner content including an icon and a text label
-                            Icon(
-                                Icons.Default.VideoCall,
-                                contentDescription = "Favorite", tint = Color.White
-                            )
-                            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                            Text("Take Service", fontSize = 16.sp)
-                        }
-                    }
-
+                itemsIndexed(courseList) { _, item ->
+                    AdviceItem(item = item)
                 }
             }
-
-
-
-
-                BoxWithConstraints(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center) {
-                    Text(
-                        textAlign = TextAlign.Center,
-                        text = "Excuse me",
-                        color = accentColor,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 30.sp,
-                    )
+            LazyColumn(content = {
+                itemsIndexed(courseList) { _, item ->
+                    AdviceItem(item = item)
                 }
-                Image(
-                    painter = painterResource(id = R.drawable.compose_awesome),
-                    contentDescription = "")
+            })
+            BoxWithConstraints(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center) {
+                Text(
+                    textAlign = TextAlign.Center,
+                    text = "Excuse me",
+                    color = accentColor,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                )
+            }
+            Image(
+                painter = painterResource(id = R.drawable.compose_awesome),
+                contentDescription = "")
 
         }
 
     }
 
+}
+
+
+@Composable
+fun AdviceItem(item: ListModel) {
+    Card(modifier = Modifier
+        .width(180.dp)
+        .padding(5.dp)) {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 8.dp, top = 8.dp, end = 8.dp)) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color.Red)
+
+            ) {
+                Text(modifier = Modifier.padding(horizontal = 8.dp,
+                    vertical = 2.dp),
+                    textAlign = TextAlign.Center,
+                    text = "Live",
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+            }
+            Spacer(modifier = Modifier
+                .weight(1f))
+            Image(modifier = Modifier.size(25.dp),
+                painter = painterResource(id = item.languageImg),
+                contentDescription = "")
+
+
+        }
+        Text(
+            modifier = Modifier.padding(horizontal = 5.dp), maxLines = 2,
+            text = "${item.languageName}\n",
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+        )
+        Text(
+            modifier = Modifier.padding(horizontal = 5.dp),
+            textAlign = TextAlign.Center,
+            text = "99 Tk",
+            color = Color.Red,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+        )
+        ElevatedButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp),
+            shape = RoundedCornerShape(25),
+            onClick = { /* ... */ },
+            // Uses ButtonDefaults.ContentPadding by default
+            contentPadding = PaddingValues(5.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Cyan)
+        ) {
+            // Inner content including an icon and a text label
+            Icon(
+                Icons.Default.Call,
+                contentDescription = "Favorite",
+            )
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Text("Take Service", fontSize = 16.sp)
+        }
+    }
 }
